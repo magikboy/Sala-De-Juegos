@@ -1,0 +1,54 @@
+<div class="fondo texto-principal flex-centro">
+  <div class="contenedor max-auto py-12 px-4 md:px-6 lg:px-8 flex-col-centro">
+    <div class="grid-1 md:grid-2 gap-8 w-full">
+      <div class="flex-col-centro">
+        <img
+          src="assets/img/perfil.jpg"
+          width="400"
+          height="400"
+          alt="Foto del alumno"
+          class="imagen-redonda w-64 h-64"
+        />
+        <div class="mt-6 text-center">
+          <h2 class="titulo">Bosco Mascaro Massimo</h2>
+          <p class="texto-muted">22 años</p>
+          <p class="mt-4">Mis intereses y pasatiempos incluyen:</p>
+
+          <ul class="lista-disc pl-6 mt-2">
+            <li>Programación y desarrollo de Apps moviles</li>
+            <li>Leer libros de ciencia ficción y fantasía</li>
+            <li>Practicar deportes como el Natacion</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex-col gap-6 w-full">
+        <div class="w-full">
+          <h2 class="titulo">Mis juegos</h2>
+          <div class="mt-6 grid-1 gap-4 w-full">
+            <div
+              class="w-full"
+              *ngFor="let juego of juegos; let i = index"
+              [ngClass]="{ oculto: i !== juegoActual }"
+            >
+              <h3 class="subtitulo">{{ juego.titulo }}</h3>
+              <p class="mt-4 texto-muted">{{ juego.descripcion }}</p>
+              <div class="mt-6 flex-centro">
+                <img
+                  [src]="juego.imagen"
+                  width="600"
+                  height="400"
+                  alt="Captura de pantalla del juego {{ juego.titulo }}"
+                  class="imagen-cuadrada"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 flex-centro">
+            <button class="boton" (click)="anteriorJuego()">Anterior</button>
+            <button class="boton" (click)="siguienteJuego()">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
