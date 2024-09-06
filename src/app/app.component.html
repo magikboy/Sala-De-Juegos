@@ -1,9 +1,19 @@
-<div class="navigation-buttons">
-  <a routerLink="/login"><button>Login</button></a>
-  <a routerLink="/quien-soy"><button>Quién Soy</button></a>
-  <a routerLink="/home"><button>Home</button></a>
-
-  <button type="button" class="btn btn-dark btn-rounded" mdbRipple>Dark</button>
+<div class="flex justify-center space-x-4 mt-8">
+  <a routerLink="/login">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+      Login
+    </button>
+  </a>
+  <a routerLink="/quien-soy">
+    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300">
+      Quién Soy
+    </button>
+  </a>
+  <a routerLink="/home">
+    <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300">
+      Home
+    </button>
+  </a>
 </div>
 
 <router-outlet></router-outlet>
