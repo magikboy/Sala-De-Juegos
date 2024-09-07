@@ -47,8 +47,10 @@
 }
 
 .imagen-redonda {
+  color: white;
   border-radius: 50%;
   object-fit: cover;
+  border: 10px solid white;
 }
 
 .imagen-cuadrada {
@@ -100,4 +102,24 @@
 
 .oculto {
   display: none;
+}
+
+/* Nuevas clases */
+.fondo-oscuro {
+  background-image: linear-gradient(147deg, #c7c7c7 10%, #66b6df 80%);
+}
+
+.card-juego {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.imagen-juego {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
 }
