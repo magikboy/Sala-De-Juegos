@@ -1,0 +1,24 @@
+.fondo {
+  background-image: linear-gradient(147deg, #e7e7e7 10%, #66b6df 80%);
+  min-height: 820px;
+}
+
+.card {
+  opacity: 0;
+  transform: translateY(100px);
+  animation: slideIn 0.8s forwards ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

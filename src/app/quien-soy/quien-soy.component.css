@@ -1,13 +1,3 @@
-.fondo {
-  margin: 0;
-  background-color: #540aa8;
-  background-image: linear-gradient(147deg, #520e91 0%, #610ece 74%);
-  min-height: 30vh;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 10px;
-}
-
 .texto-principal {
   color: var(--foreground);
 }
@@ -104,7 +94,6 @@
   display: none;
 }
 
-/* Nuevas clases */
 .fondo-oscuro {
   background-image: linear-gradient(147deg, #e7e7e7 10%, #66b6df 80%);
 }

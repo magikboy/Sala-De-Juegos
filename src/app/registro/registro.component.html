@@ -1,1 +1,103 @@
-<p>registro works!</p>
+<div class="fondo flex-centro">
+  <div
+    class="contenedor flex-col-centro card"
+    style="margin-top: 150px; max-width: 400px"
+  >
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Registrarse</h2>
+    <form
+      (ngSubmit)="register()"
+      class="bg-white p-6 rounded-lg shadow-lg w-full"
+    >
+      <!-- Campo Email -->
+      <div class="mb-5">
+        <label
+          for="email-input"
+          class="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Correo electrónico
+        </label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          id="email-input"
+          class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500"
+          required
+        />
+      </div>
+
+      <!-- Campo Contraseña -->
+      <div class="mb-5">
+        <label
+          for="password-input"
+          class="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Contraseña
+        </label>
+        <div class="relative">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            name="password"
+            id="password-input"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            required
+          />
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            class="absolute right-2 top-2 text-sm text-gray-600"
+          >
+            {{ showPassword ? "Ocultar" : "Mostrar" }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Campo Confirmar Contraseña -->
+      <div class="mb-5">
+        <label
+          for="confirm-password-input"
+          class="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Confirmar contraseña
+        </label>
+        <div class="relative">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            id="confirm-password-input"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            required
+          />
+          <button
+            type="button"
+            (click)="toggleConfirmPasswordVisibility()"
+            class="absolute right-2 top-2 text-sm text-gray-600"
+          >
+            {{ showConfirmPassword ? "Ocultar" : "Mostrar" }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón de registro -->
+      <button type="submit" class="boton w-full">Registrar</button>
+
+      <!-- Mensaje de error -->
+      <p *ngIf="errorMessage" class="text-red-500 text-xs italic mt-2">
+        {{ errorMessage }}
+      </p>
+
+      <!-- Sección de Login -->
+      <div class="text-center mt-6">
+        <p class="text-gray-600">¿Ya estas registrado?</p>
+        <button
+          (click)="redirectToLogin()"
+          class="text-blue-500 hover:underline mt-2"
+        >
+          Logueate aca
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

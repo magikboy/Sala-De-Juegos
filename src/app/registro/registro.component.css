@@ -1,0 +1,87 @@
+.fondo {
+  background-image: linear-gradient(147deg, #e7e7e7 10%, #66b6df 80%);
+  min-height: 820px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s ease; /* Añadido para la animación */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Efecto de agrandado cuando se pasa el mouse */
+}
+
+.contenedor {
+  max-width: 1200px;
+  margin: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.md\:grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.flex-centro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col-centro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imagen-redonda {
+  color: white;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 10px solid white;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-weight: medium;
+  background-color: #1e3a8a; /* Azul predeterminado */
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s ease; /* Animación al hacer hover */
+}
+
+.boton:hover {
+  background-color: #2563eb; /* Cambia a un azul más claro al pasar el ratón */
+  transform: scale(1.05); /* Efecto de agrandado en el botón */
+}
+
+.mx-4 {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.oculto {
+  display: none;
+}
