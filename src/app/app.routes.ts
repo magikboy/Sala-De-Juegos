@@ -19,4 +19,5 @@ export const routes: Routes = [
   { path: 'preguntados', component: PreguntadosComponent },
   { path: 'tetris', component: TetrisComponent },
   { path: 'ahorcado', component: AhorcadoComponent },
+  { path: 'chat', loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule), canActivate: [AuthGuard] },
 ];

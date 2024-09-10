@@ -16,8 +16,8 @@ export class RegistroComponent {
   password: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
-  showPassword: boolean = false; // Controla la visibilidad de la contraseña
-  showConfirmPassword: boolean = false; // Controla la visibilidad de la confirmación de contraseña
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -67,6 +67,6 @@ export class RegistroComponent {
   }
 
     redirectToLogin() {
-      this.router.navigate(['/login']); // Ruta al componente de login
+      this.router.navigate(['/login']);
     }
 }

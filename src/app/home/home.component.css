@@ -9,7 +9,6 @@
   animation: slideIn 0.8s forwards ease-in-out;
 }
 
-/* Animación de entrada */
 @keyframes slideIn {
   0% {
     opacity: 0;

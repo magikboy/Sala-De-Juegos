@@ -1,0 +1,39 @@
+<div class="flex justify-center items-center fondo">
+    <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden">
+      <div class="bg-blue-500 p-6 text-white text-center">
+        <h2 class="font-semibold text-xl">Chat</h2>
+      </div>
+
+      <div class="messages p-6 h-96 overflow-y-auto bg-gray-50">
+        <div
+          *ngFor="let message of messages"
+          [ngClass]="{
+            sent: isCurrentUser(message.user),
+            received: !isCurrentUser(message.user)
+          }"
+          class="message p-3 my-2 rounded-lg text-base"
+        >
+          <div class="font-semibold">{{ message.user }}</div>
+          <div class="text-xs text-gray-500">
+            {{ message.timestamp | date : "short" }}
+          </div>
+          <p class="mt-2">{{ message.text }}</p>
+        </div>
+      </div>
+  
+      <div class="message-input flex p-4 bg-gray-100 border-t border-gray-300">
+        <input
+          class="flex-1 p-3 border border-gray-300 rounded-md text-base focus:outline-none"
+          [(ngModel)]="newMessage"
+          placeholder="Escribe un mensaje..."
+        />
+        <button
+          (click)="sendMessage()"
+          class="ml-3 bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-900"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+  
