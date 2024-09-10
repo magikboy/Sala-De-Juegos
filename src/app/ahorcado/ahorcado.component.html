@@ -1,1 +1,52 @@
-<p>ahorcado works!</p>
+<div
+  class="flex items-center justify-center fondo"
+>
+  <div class="card bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <div class="word-container text-center text-3xl font-bold mb-8">
+      <!-- Mostrar las letras adivinadas con un subrayado para facilitar la visualización -->
+      <span *ngFor="let letter of guessedWord" class="letter-underline">
+        {{ letter === "_" ? "_" : letter }}
+      </span>
+    </div>
+
+    <div class="hangman-drawing flex justify-center mb-8">
+      <div class="hangman">
+        <div class="base"></div>
+        <div class="pole"></div>
+        <div class="beam"></div>
+        <div class="rope"></div>
+        <div class="head" *ngIf="currentErrors > 0"></div>
+        <div class="body" *ngIf="currentErrors > 1"></div>
+        <div class="left-arm" *ngIf="currentErrors > 2"></div>
+        <div class="right-arm" *ngIf="currentErrors > 3"></div>
+        <div class="left-leg" *ngIf="currentErrors > 4"></div>
+        <div class="right-leg" *ngIf="currentErrors > 5"></div>
+      </div>
+    </div>
+
+    <!-- Sección del contador de errores -->
+    <div class="text-center text-xl mb-4">
+      <p>Errores: {{ currentErrors }} / {{ maxErrors }}</p>
+    </div>
+
+    <!-- Mostrar pista automáticamente cuando esté disponible -->
+    <div *ngIf="hint" class="text-center text-lg text-green-500 mb-4">
+      {{ hint }}
+    </div>
+
+    <div class="keyboard-container grid grid-cols-7 gap-2 mb-4">
+      <button
+        *ngFor="let letter of alphabet"
+        class="btn bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-900 transition-all disabled:opacity-50"
+        (click)="guessLetter(letter)"
+        [disabled]="guessedLetters.includes(letter)"
+      >
+        {{ letter }}
+      </button>
+    </div>
+
+    <div class="status-message text-center text-xl font-semibold text-red-500">
+      {{ statusMessage }}
+    </div>
+  </div>
+</div>

@@ -17,6 +17,11 @@ interface Juego {
 export class QuienSoyComponent {
   juegos: Juego[] = [
     {
+      titulo: 'Tetris',
+      descripcion: 'Tetris es un juego de bloques en el que debes encajar las piezas que caen en una cuadrícula.',
+      imagen: 'assets/img/Tetris.jpg'
+    },
+    {
       titulo: 'Ahorcado',
       descripcion: 'Ahorcado es un juego clásico en el que debes adivinar una palabra antes de que el dibujo del ahorcado se complete.',
       imagen: 'assets/img/ahorcado.png'
@@ -30,11 +35,6 @@ export class QuienSoyComponent {
       titulo: 'Preguntados',
       descripcion: 'Preguntados es un juego de preguntas y respuestas en el que compites para ver quién sabe más sobre diferentes temas.',
       imagen: 'assets/img/Preguntados.png'
-    },
-    {
-      titulo: 'Tetris',
-      descripcion: 'Tetris es un juego de bloques en el que debes encajar las piezas que caen en una cuadrícula.',
-      imagen: 'assets/img/Tetris.jpg'
     }
   ];
 

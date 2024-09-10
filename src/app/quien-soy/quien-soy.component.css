@@ -95,11 +95,11 @@
 }
 
 .fondo-oscuro {
-  background-image: linear-gradient(147deg, #e7e7e7 10%, #66b6df 80%);
+  background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
 }
 
 .card-juego {
-  background-image: linear-gradient(147deg, #ffffff 10%, #93d7ff 80%);
+  background-image: linear-gradient(147deg, #e7d2ff 10%, #fffec3 80%);
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

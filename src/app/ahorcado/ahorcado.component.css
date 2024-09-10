@@ -1,0 +1,114 @@
+.fondo {
+  background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
+  min-height: 820px;
+}
+
+.hangman {
+  position: relative;
+  width: 150px;
+  height: 260px;
+}
+
+.base {
+  position: absolute;
+  width: 100px;
+  height: 10px;
+  background-color: #000;
+  bottom: 0;
+  left: 25px;
+}
+
+.pole {
+  position: absolute;
+  width: 10px;
+  height: 240px;
+  background-color: #000;
+  bottom: 10px;
+  left: 50px;
+}
+
+.beam {
+  position: absolute;
+  width: 100px;
+  height: 10px;
+  background-color: #000;
+  top: 0;
+  left: 50px;
+}
+
+.rope {
+  position: absolute;
+  width: 2px;
+  height: 30px;
+  background-color: #000;
+  top: 10px;
+  left: 140px;
+}
+
+.head {
+  position: absolute;
+  width: 60px; /* Aumenta el ancho de la cabeza */
+  height: 60px; /* Aumenta la altura de la cabeza */
+  border-radius: 50%;
+  border: 5px solid #000; /* Aumenta el grosor del borde */
+  top: 40px;
+  left: 110px; /* Ajusta la posición de la cabeza para centrarla */
+}
+
+.body {
+  position: absolute;
+  width: 6px; /* Aumenta el ancho del torso */
+  height: 80px; /* Aumenta la altura del torso */
+  background-color: #000;
+  top: 100px; /* Ajusta la posición del cuerpo */
+  left: 137px; /* Ajusta la posición del cuerpo para centrarlo */
+}
+
+.left-arm {
+  position: absolute;
+  width: 50px; /* Aumenta el ancho del brazo */
+  height: 6px; /* Aumenta el grosor del brazo */
+  background-color: #000;
+  top: 120px; /* Ajusta la posición del brazo */
+  left: 90px; /* Ajusta la posición del brazo */
+  transform: rotate(-45deg);
+}
+
+.right-arm {
+  position: absolute;
+  width: 50px; /* Aumenta el ancho del brazo */
+  height: 6px; /* Aumenta el grosor del brazo */
+  background-color: #000;
+  top: 120px; /* Ajusta la posición del brazo */
+  left: 140px; /* Ajusta la posición del brazo */
+  transform: rotate(45deg);
+}
+
+.left-leg {
+  position: absolute;
+  width: 50px; /* Aumenta el ancho de la pierna */
+  height: 6px; /* Aumenta el grosor de la pierna */
+  background-color: #000;
+  top: 200px;
+  left: 110px;
+  transform: rotate(-80deg);
+}
+
+.right-leg {
+  position: absolute;
+  width: 50px; /* Aumenta el ancho de la pierna */
+  height: 6px; /* Aumenta el grosor de la pierna */
+  background-color: #000;
+  top: 200px;
+  left: 120px;
+  transform: rotate(80deg);
+}
+
+/* Subrayado para las letras */
+.letter-underline {
+  border-bottom: 2px solid #000;
+  margin: 0 5px;
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}

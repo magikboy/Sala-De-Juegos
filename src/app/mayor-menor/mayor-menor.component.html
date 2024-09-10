@@ -1,1 +1,58 @@
-<p>mayor-menor works!</p>
+<div class="flex justify-center items-center fondo">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
+    <h1 class="text-2xl font-bold text-center mb-4">
+      Juego de Mayor o Menor - Truco Argentino
+    </h1>
+
+    <!-- Mostrar dos cartas: la actual y la siguiente -->
+    <div class="flex justify-center mb-6 space-x-8">
+      <!-- Carta actual -->
+      <div
+        class="card w-24 h-36 bg-white rounded-lg border-2 border-gray-400 flex flex-col items-center justify-center"
+      >
+        <p class="text-4xl">{{ currentCard?.number }}</p>
+        <p class="text-3xl">{{ currentCard?.symbol }}</p>
+      </div>
+
+      <!-- Carta siguiente -->
+      <div
+        class="card w-24 h-36 bg-white rounded-lg border-2 border-gray-400 flex flex-col items-center justify-center"
+      >
+        <p class="text-4xl">{{ nextCard?.number }}</p>
+        <p class="text-3xl">{{ nextCard?.symbol }}</p>
+      </div>
+    </div>
+
+    <!-- Botones de mayor o menor -->
+    <div class="flex justify-between mb-4">
+      <button
+        (click)="guessHigher()"
+        class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+      >
+        Mayor
+      </button>
+      <button
+        (click)="guessLower()"
+        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+      >
+        Menor
+      </button>
+    </div>
+
+    <!-- Mensaje de resultado -->
+    <p class="text-center text-lg mb-4">{{ message }}</p>
+
+    <!-- Mostrar la puntuación -->
+    <p class="text-center text-xl font-bold">Puntuación: {{ score }}</p>
+
+    <!-- Botón para reiniciar el juego -->
+    <div class="flex justify-center mt-4">
+      <button
+        (click)="startGame()"
+        class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
+      >
+        Reiniciar Juego
+      </button>
+    </div>
+  </div>
+</div>

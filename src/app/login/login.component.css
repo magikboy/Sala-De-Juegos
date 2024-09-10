@@ -1,5 +1,5 @@
 .fondo {
-  background-image: linear-gradient(147deg, #e7e7e7 10%, #66b6df 80%);
+  background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
   min-height: 820px;
 }
 
@@ -58,7 +58,7 @@
   padding: 12px 16px;
   font-size: 1rem;
   font-weight: medium;
-  background-color: #1e3a8a;
+  background-color: #6521a5;
   color: white;
   border-radius: 0.5rem;
   border: none;
@@ -66,7 +66,7 @@
 }
 
 .boton:hover {
-  background-color: #2563eb;
+  background-color: #af37ff;
   transform: scale(1.05);
 }
 /* Márgenes horizontales */
