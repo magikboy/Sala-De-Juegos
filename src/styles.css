@@ -12,7 +12,8 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #540aa8;
-  background-image: linear-gradient(147deg, #3d496e 0%, #610ece 74%);
+  background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
+  min-height: 100%;
 }
 
 #app-container {

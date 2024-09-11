@@ -209,6 +209,6 @@ export class PreguntadosComponent implements OnInit {
         return 'bg-red-500 text-white';
       }
     }
-    return 'bg-blue-500 text-white hover:bg-blue-600';
+    return 'bg-purple-500 text-white hover:bg-purple-600';
   }
 }

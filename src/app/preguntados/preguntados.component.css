@@ -1,3 +1,9 @@
+.fondo {
+  min-height: 800px;}.fondo {
+  border-bottom-left-radius: 1rem; /* Ajusta el valor según el redondeado que prefieras */
+  border-bottom-right-radius: 1rem;
+}
+
 .preguntados-container {
     max-width: 600px;
     margin: 0 auto;
