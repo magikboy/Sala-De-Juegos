@@ -1,1 +1,36 @@
-<p>tetris works!</p>
+<div class="flex justify-center items-center fondo">
+  <div class="bg-white rounded-lg shadow-lg p-7">
+    <div class="text-center">
+      <h1 class="text-3xl font-bold mb-4">Tetris</h1>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <canvas #board class="game-board border border-black"></canvas>
+      <div class="flex flex-col justify-between">
+        <div class="space-y-2 text-center">
+          <p class="text-lg font-semibold">Puntos: <span class="text-gray-700">{{ points }}</span></p>
+          <p class="text-lg font-semibold">Lineas: <span class="text-gray-700">{{ lines }}</span></p>
+          <p class="text-lg font-semibold">Nivel: <span class="text-gray-700">{{ level }}</span></p>
+        </div>
+
+        <!-- Contenedor de texto y canvas "Siguiente Pieza" -->
+        <div class="flex flex-col items-center mt-6">
+          <p class="text-lg font-semibold mb-2">Siguiente Pieza</p>
+          <canvas #next class="next border border-gray-600"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button (click)="play()" class="play-button">Jugar</button>
+    </div>
+
+    <!-- Botones Arcade -->
+    <div class="arcade-controls">
+      <button (click)="moveLeft()" class="arcade-button">⬅</button>
+      <button (click)="rotatePiece()" class="arcade-button">🔄</button>
+      <button (click)="moveRight()" class="arcade-button">➡</button>
+      <button (click)="moveDown()" class="arcade-button">⬇</button>
+    </div>
+  </div>
+</div>

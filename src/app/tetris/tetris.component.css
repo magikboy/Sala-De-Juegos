@@ -1,0 +1,75 @@
+.fondo {
+  background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 917px; /*el viejo era 820 con el footer */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 320px 200px;
+  gap: 2rem;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.game-board {
+  width: 320px;
+  height: 640px;
+  background: linear-gradient(180deg, #fffaec 0%, #d791ff 100%);
+  border: 1px solid black;
+}
+
+.next {
+  width: 128px;
+  height: 128px;
+}
+
+.play-button {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #6a0dad;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: #a52aeb;
+}
+
+.arcade-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.arcade-button {
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.arcade-button:hover {
+  background-color: #a52aeb;
+}
+
+.arcade-button:active {
+  background-color: #6a0dad;
+}

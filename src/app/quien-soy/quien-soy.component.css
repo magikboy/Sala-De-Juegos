@@ -96,6 +96,7 @@
 
 .fondo-oscuro {
   background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
+  min-height: 917px;
 }
 
 .card-juego {
