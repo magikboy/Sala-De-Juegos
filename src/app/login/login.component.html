@@ -1,65 +1,64 @@
 <div class="fondo flex justify-center items-center">
-    <div class="contenedor">
-      <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-        <h2 class="titulo text-gray-700 text-2xl mb-4 text-center">
-          Iniciar Sesión
-        </h2>
-        <form (ngSubmit)="login()" class="w-full">
-          <!-- Email input -->
-          <input
-            type="email"
-            name="email"
-            placeholder="Correo electrónico"
-            class="w-full py-2 px-4 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-            [(ngModel)]="email"
-            required
-          />
-          <!-- Password input -->
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            class="w-full py-2 px-4 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-            [(ngModel)]="password"
-            required
-          />
-          <!-- Error message -->
-          <div *ngIf="errorMessage" class="text-red-500 text-center mb-4">
-            {{ errorMessage }}
-          </div>
-          <!-- Botones de acción -->
-          <div class="flex justify-center mt-4">
-            <button type="submit" class="boton w-full">Ingresar</button>
-          </div>
-        </form>
-  
-        <!-- Botones de acceso rápido -->
-        <div class="flex justify-between mt-4">
-          <button
-            (click)="quickLogin('admin')"
-            class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300"
-          >
-            Acceso rápido: Admin
-          </button>
-          <button
-            (click)="quickLogin('user')"
-            class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300"
-          >
-            Acceso rápido: Usuario
-          </button>
+  <div class="contenedor">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+      <h2 class="titulo text-gray-700 text-2xl mb-4 text-center">
+        Iniciar Sesión
+      </h2>
+      <form (ngSubmit)="login()" class="w-full">
+        <!-- Email input -->
+        <input
+          type="email"
+          name="email"
+          placeholder="Correo electrónico"
+          class="w-full py-2 px-4 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+          [(ngModel)]="email"
+          required
+        />
+        <!-- Password input -->
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          class="w-full py-2 px-4 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+          [(ngModel)]="password"
+          required
+        />
+        <!-- Error message -->
+        <div *ngIf="errorMessage" class="text-red-500 text-center mb-4">
+          {{ errorMessage }}
         </div>
-  
-        <!-- Sección de registro -->
-        <div class="text-center mt-6">
-          <p class="text-gray-600">¿Todavía no estás registrado?</p>
-          <button
-            (click)="redirectToRegister()"
-            class="text-purple-500 hover:underline mt-2"
-          >
-            Regístrate aca
-          </button>
+        <!-- Botones de acción -->
+        <div class="flex justify-center mt-4">
+          <button type="submit" class="boton w-full">Ingresar</button>
         </div>
+      </form>
+
+      <!-- Botones de acceso rápido -->
+      <div class="flex justify-between mt-4">
+        <button
+          (click)="quickLogin('admin')"
+          class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300"
+        >
+          Acceso rápido: Admin
+        </button>
+        <button
+          (click)="quickLogin('user')"
+          class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300"
+        >
+          Acceso rápido: Usuario
+        </button>
+      </div>
+
+      <!-- Sección de registro -->
+      <div class="text-center mt-6">
+        <p class="text-gray-600">¿Todavía no estás registrado?</p>
+        <button
+          (click)="redirectToRegister()"
+          class="text-purple-500 hover:underline mt-2"
+        >
+          Regístrate aca
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

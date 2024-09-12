@@ -1,12 +1,23 @@
 .fondo {
   background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
-  min-height: 917px;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
 }
 
 .hangman {
   position: relative;
-  width: 150px;
-  height: 260px;
+  width: 100px;
+  height: 220px;
+  margin: 0 auto;
 }
 
 .base {
@@ -15,13 +26,12 @@
   height: 10px;
   background-color: #000;
   bottom: 0;
-  left: 25px;
 }
 
 .pole {
   position: absolute;
   width: 10px;
-  height: 240px;
+  height: 200px;
   background-color: #000;
   bottom: 10px;
   left: 50px;
@@ -39,7 +49,7 @@
 .rope {
   position: absolute;
   width: 2px;
-  height: 30px;
+  height: 40px;
   background-color: #000;
   top: 10px;
   left: 140px;
@@ -47,68 +57,117 @@
 
 .head {
   position: absolute;
-  width: 60px; /* Aumenta el ancho de la cabeza */
-  height: 60px; /* Aumenta la altura de la cabeza */
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  border: 5px solid #000; /* Aumenta el grosor del borde */
-  top: 40px;
-  left: 110px; /* Ajusta la posición de la cabeza para centrarla */
+  border: 5px solid #000;
+  top: 50px;
+  left: 115px;
 }
 
 .body {
   position: absolute;
-  width: 6px; /* Aumenta el ancho del torso */
-  height: 80px; /* Aumenta la altura del torso */
+  width: 6px;
+  height: 80px;
   background-color: #000;
-  top: 100px; /* Ajusta la posición del cuerpo */
-  left: 137px; /* Ajusta la posición del cuerpo para centrarlo */
+  top: 100px;
+  left: 137px;
 }
 
 .left-arm {
   position: absolute;
-  width: 50px; /* Aumenta el ancho del brazo */
-  height: 6px; /* Aumenta el grosor del brazo */
+  width: 50px;
+  height: 6px;
   background-color: #000;
-  top: 120px; /* Ajusta la posición del brazo */
-  left: 90px; /* Ajusta la posición del brazo */
+  top: 120px;
+  left: 90px;
   transform: rotate(-45deg);
 }
 
 .right-arm {
   position: absolute;
-  width: 50px; /* Aumenta el ancho del brazo */
-  height: 6px; /* Aumenta el grosor del brazo */
+  width: 50px;
+  height: 6px;
   background-color: #000;
-  top: 120px; /* Ajusta la posición del brazo */
-  left: 140px; /* Ajusta la posición del brazo */
+  top: 120px;
+  left: 140px;
   transform: rotate(45deg);
 }
 
 .left-leg {
   position: absolute;
-  width: 50px; /* Aumenta el ancho de la pierna */
-  height: 6px; /* Aumenta el grosor de la pierna */
+  width: 50px;
+  height: 6px;
   background-color: #000;
-  top: 200px;
+  top: 200px; /* Ajusta la posición */
   left: 110px;
   transform: rotate(-80deg);
 }
 
 .right-leg {
   position: absolute;
-  width: 50px; /* Aumenta el ancho de la pierna */
-  height: 6px; /* Aumenta el grosor de la pierna */
+  width: 50px;
+  height: 6px;
   background-color: #000;
   top: 200px;
   left: 120px;
   transform: rotate(80deg);
 }
 
-/* Subrayado para las letras */
+/* Ajustar las letras subrayadas */
 .letter-underline {
   border-bottom: 2px solid #000;
-  margin: 0 5px;
+  margin: 0 3px;
   display: inline-block;
-  width: 30px;
+  width: 25px;
   text-align: center;
+}
+
+/* Hacer el teclado responsive */
+.keyboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+  gap: 10px;
+}
+
+/* Mejorar botones en dispositivos móviles */
+.btn {
+  padding: 10px 5px;
+  font-size: 14px;
+}
+
+/* Mensajes de estado */
+.status-message {
+  font-size: 18px;
+}
+
+/* Media Queries para dispositivos pequeños */
+@media (max-width: 600px) {
+  .hangman {
+    width: 80px;
+    height: 150px;
+  }
+
+  .head {
+    width: 30px;
+    height: 30px;
+  }
+
+  .body {
+    height: 50px;
+  }
+
+  .letter-underline {
+    width: 20px;
+    font-size: 16px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+
+  .status-message {
+    font-size: 16px;
+  }
 }

@@ -1,1 +1,119 @@
+/* Estilos generales */
+#app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
+nav {
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Menú en móvil oculto inicialmente */
+ul.hidden {
+  display: none;
+}
+
+/* El menú desplegable se centra y se alinea correctamente */
+ul.open {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Botón de menú */
+.menu-button {
+  display: block;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Hover de los botones del menú */
+ul li a,
+ul li button {
+  display: block;
+  width: 100%;
+  text-align: center; /* Centra el texto */
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+ul li a:hover,
+ul li button:hover {
+  background-color: #a52aeb;
+  color: white;
+  text-align: center; /* Asegura que el texto permanezca centrado */
+}
+
+/* Asegura que el botón cubra todo el ancho del menú */
+ul li button {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* Estilos responsivos */
+@media (min-width: 1024px) {
+  ul {
+    display: flex !important;
+    justify-content: center;
+    flex-direction: row;
+    text-align: center;
+    width: 100%;
+  }
+
+  ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ul li a,
+  ul li button {
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Ocultar el botón de menú en pantallas grandes */
+  .menu-button {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  ul {
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  ul.open {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  button:hover {
+    background-color: #a52aeb;
+    color: white;
+  }
+}

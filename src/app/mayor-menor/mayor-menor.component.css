@@ -1,6 +1,10 @@
 .fondo {
   background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
-  min-height: 917px;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .card {
@@ -13,11 +17,78 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 3rem;
+  font-size: 2rem;
   color: #333;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .card p {
   margin: 0;
+}
+
+/* Media Queries para hacer el diseño responsivo */
+
+/* Pantallas medianas (tabletas y dispositivos similares) */
+@media (max-width: 1024px) {
+  .card {
+    width: 80px;
+    height: 120px;
+    font-size: 1.5rem;
+  }
+
+  .bg-white {
+    max-width: 500px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}
+
+/* Pantallas pequeñas (móviles y dispositivos pequeños) */
+@media (max-width: 768px) {
+  .card {
+    width: 70px;
+    height: 100px;
+    font-size: 1.25rem;
+  }
+
+  .bg-white {
+    max-width: 90%;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 60px;
+    height: 90px;
+    font-size: 1rem;
+  }
+
+  .bg-white {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
 }

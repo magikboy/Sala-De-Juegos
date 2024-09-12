@@ -96,7 +96,8 @@
 
 .fondo-oscuro {
   background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
-  min-height: 917px;
+  min-height: 90vh;
+  padding: 20px;
 }
 
 .card-juego {
@@ -104,6 +105,11 @@
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-juego:hover {
+  transform: scale(1.05);
 }
 
 .imagen-juego {
@@ -112,4 +118,93 @@
   height: 400px;
   object-fit: cover;
   border-radius: 8px;
+}
+
+/* Media Queries para hacer el diseño responsive */
+
+/* Pantallas medianas (tabletas y dispositivos similares) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 10px;
+  }
+
+  .imagen-redonda {
+    width: 70%;
+    height: auto;
+  }
+
+  .titulo {
+    font-size: 1.75rem;
+  }
+
+  .subtitulo {
+    font-size: 1.25rem;
+  }
+
+  .imagen-juego {
+    height: 300px;
+  }
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .imagen-redonda {
+    width: 60%;
+    height: auto;
+  }
+
+  .titulo {
+    font-size: 1.5rem;
+  }
+
+  .imagen-juego {
+    height: 250px;
+  }
+
+  .boton {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  /* Deshabilitar la animación de hover en móviles */
+  .card-juego:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .fondo-oscuro {
+    padding: 10px;
+  }
+
+  .imagen-redonda {
+    width: 50%;
+    height: auto;
+  }
+
+  .titulo {
+    font-size: 1.25rem;
+  }
+
+  .subtitulo {
+    font-size: 1rem;
+  }
+
+  .imagen-juego {
+    height: 200px;
+  }
+
+  .boton {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  /* Deshabilitar la animación de hover en pantallas más pequeñas */
+  .card-juego:hover {
+    transform: none;
+  }
 }

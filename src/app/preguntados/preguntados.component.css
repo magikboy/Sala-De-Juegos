@@ -1,29 +1,102 @@
 .fondo {
-  min-height: 800px;}.fondo {
-  border-bottom-left-radius: 1rem; /* Ajusta el valor según el redondeado que prefieras */
+  min-height: 90vh;
+  border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  padding: 20px;
 }
 
 .preguntados-container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.question-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px; /* Añadido redondeado para los botones */
+  transition: background-color 0.3s ease;
+}
+
+/* Media Queries para pantallas medianas */
+@media (max-width: 1024px) {
+  .fondo {
+    padding: 15px;
   }
-  
+
+  .preguntados-container {
+    max-width: 80%;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .question-image {
+    max-width: 80%;
+  }
+}
+
+/* Media Queries para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .fondo {
+    padding: 10px;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+  }
+
+  .preguntados-container {
+    max-width: 100%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .question-image {
+    max-width: 100%;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Media Queries para pantallas muy pequeñas (teléfonos pequeños) */
+@media (max-width: 480px) {
+  .fondo {
+    padding: 8px;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
   .question-image {
     max-width: 100%;
     height: auto;
-    margin-bottom: 20px;
   }
-  
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  button {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-  }
+}

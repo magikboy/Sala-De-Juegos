@@ -3,7 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 917px; /*el viejo era 820 con el footer */
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .grid {
@@ -72,4 +73,92 @@
 
 .arcade-button:active {
   background-color: #6a0dad;
+}
+
+/* Media Queries para hacer el diseño responsive */
+
+/* Pantallas medianas (tabletas y dispositivos similares) */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr; /* Cambiar a una sola columna en tabletas */
+    justify-items: center;
+  }
+
+  .game-board {
+    width: 240px; /* Reducir el tamaño del tablero */
+    height: 480px;
+  }
+
+  .right-column {
+    width: 100%;
+    text-align: center;
+  }
+
+  .next {
+    width: 100px;
+    height: 100px; /* Ajustar el tamaño del canvas de la siguiente pieza */
+  }
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .fondo {
+    padding: 10px;
+  }
+
+  /* Reorganizar el contenido en móviles */
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto; /* Dos filas: información y tablero */
+    gap: 1rem;
+  }
+
+  .space-y-2 {
+    order: 1; /* Colocar la sección de puntos, líneas y nivel arriba */
+  }
+
+  .game-board {
+    order: 2; /* El tablero se colocará debajo en móviles */
+    width: 180px; /* Reducir aún más el tamaño del tablero en móviles */
+    height: 360px;
+  }
+
+  .next {
+    width: 80px;
+    height: 80px;
+  }
+
+  .play-button {
+    padding: 8px 16px;
+  }
+
+  .arcade-button {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* Pantallas muy pequeñas (teléfonos pequeños) */
+@media (max-width: 480px) {
+  .game-board {
+    width: 150px;
+    height: 300px;
+  }
+
+  .next {
+    width: 64px;
+    height: 64px;
+  }
+
+  .play-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  .arcade-button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
 }

@@ -1,12 +1,17 @@
 .fondo {
   background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
-  min-height: 917px;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
 .card {
   opacity: 0;
   transform: translateY(100px);
   animation: slideIn 0.8s forwards ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 @keyframes slideIn {
@@ -20,4 +25,49 @@
   }
 }
 
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
 
+/* Media Queries para hacer el diseño responsive */
+
+/* Pantallas medianas (tabletas y dispositivos similares) */
+@media (max-width: 1024px) {
+  .fondo {
+    padding: 20px 10px;
+  }
+
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    height: 35rem;
+  }
+}
+
+/* Pantallas pequeñas (móviles y dispositivos pequeños) */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    height: 30rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .relative h2 {
+    font-size: 1.5rem; 
+  }
+
+  .relative p {
+    font-size: 1rem;
+  }
+
+  .relative button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

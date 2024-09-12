@@ -1,9 +1,12 @@
 .fondo {
   background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
-  min-height: 917px;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Contenedor principal */
 .contenedor {
   max-width: 1200px;
   margin: auto;
@@ -18,37 +21,17 @@
   transform: scale(1.05);
 }
 
-.grid-1 {
-  display: grid;
-  grid-template-columns: 1fr;
+/* Estilos del formulario y sus elementos */
+form {
+  width: 100%;
 }
 
-.md\:grid-2 {
-  grid-template-columns: 1fr 1fr;
-}
-
-.gap-8 {
-  gap: 8px;
-}
-
-/* Centrado y estilos del formulario */
-.flex-centro {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flex-col-centro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.imagen-redonda {
-  color: white;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 10px solid white;
+input {
+  width: 100%; 
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
 }
 
 .boton {
@@ -69,13 +52,73 @@
   background-color: #af37ff;
   transform: scale(1.05);
 }
-/* Márgenes horizontales */
-.mx-4 {
-  margin-left: 16px;
-  margin-right: 16px;
+
+.bg-white {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
 }
 
-/* Estilo oculto */
-.oculto {
-  display: none;
+/* Botones de acceso rápido */
+.bg-gray-200 {
+  background-color: #e2e8f0;
+  color: #2d3748;
+}
+
+.bg-gray-200:hover {
+  background-color: #cbd5e0;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 8px;
+  }
+
+  input {
+    padding: 10px;
+  }
+
+  .boton {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+
+  .bg-white {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor {
+    padding: 6px;
+  }
+
+  input {
+    padding: 8px;
+  }
+
+  .boton {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .bg-white {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .bg-gray-200 {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
 }

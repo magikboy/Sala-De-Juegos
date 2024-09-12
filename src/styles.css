@@ -30,3 +30,19 @@ footer {
   text-align: center;
 }
 
+/* Estilo general del scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Estilo de la parte interior (track) del scrollbar */
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+/* Estilo de la parte que se desplaza (thumb) del scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 6px;
+  border: 3px solid black; /* Para agregar un borde negro alrededor del thumb */
+}
