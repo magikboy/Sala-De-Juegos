@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; // Importa HttpClient y HttpClientModule
-import { CommonModule } from '@angular/common'; // Importa CommonModule para usar directivas como *ngIf y *ngFor
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ahorcado',
-  standalone: true, // Indica que el componente es standalone
-  imports: [CommonModule, HttpClientModule], // Importa HttpClientModule y CommonModule
+  standalone: true,
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './ahorcado.component.html',
   styleUrls: ['./ahorcado.component.css'],
 })
@@ -18,30 +18,29 @@ export class AhorcadoComponent {
   statusMessage: string = '';
   hint: string = ''; // Variable para almacenar la pista
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  allWords: string[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.getAllWords();
+    this.getWordFromAPI();
   }
 
-  getAllWords() {
+  // Nueva función para obtener la palabra desde la API
+  getWordFromAPI() {
     this.http
-      .get<string[]>('https://random-word-api.herokuapp.com/all')
-      .subscribe((words: string[]) => {
-        this.allWords = words.map((word) => word.toUpperCase());
-        this.selectRandomWord();
+      .get<any>('https://clientes.api.greenborn.com.ar/public-random-word')
+      .subscribe((response: any) => {
+        this.wordToGuess = response[0].toUpperCase(); // La API devuelve un arreglo, tomamos la primera palabra
+        this.guessedWord = Array(this.wordToGuess.length).fill('_');
       });
   }
 
-  selectRandomWord() {
-    const randomIndex = Math.floor(Math.random() * this.allWords.length);
-    this.wordToGuess = this.allWords[randomIndex];
-    this.guessedWord = Array(this.wordToGuess.length).fill('_');
-  }
-
   guessLetter(letter: string) {
+    // Si ya ganó o perdió, no permitir más intentos
+    if (this.statusMessage) {
+      return;
+    }
+
     this.guessedLetters.push(letter);
 
     if (this.wordToGuess.includes(letter)) {
@@ -60,6 +59,18 @@ export class AhorcadoComponent {
     this.checkForHint();
   }
 
+  checkWin() {
+    if (!this.guessedWord.includes('_')) {
+      this.statusMessage = '¡Ganaste!';
+    }
+  }
+
+  checkLose() {
+    if (this.currentErrors >= this.maxErrors) {
+      this.statusMessage = `¡Perdiste! La palabra era ${this.wordToGuess}`;
+    }
+  }
+
   checkForHint() {
     const guessedLettersCount = this.guessedWord.filter(
       (letter) => letter !== '_'
@@ -73,7 +84,7 @@ export class AhorcadoComponent {
     ) {
       this.generateHint();
     } else {
-      this.hint = ''; // Si no se cumplen las condiciones, no generar pista
+      this.hint = '';
     }
   }
 
@@ -85,18 +96,6 @@ export class AhorcadoComponent {
     if (remainingLetters.length > 0) {
       // Generar la pista con una de las letras que aún no ha sido adivinada
       this.hint = `Pista: Una de las letras es \"${remainingLetters[0]}\"`;
-    }
-  }
-
-  checkWin() {
-    if (!this.guessedWord.includes('_')) {
-      this.statusMessage = '¡Ganaste!';
-    }
-  }
-
-  checkLose() {
-    if (this.currentErrors >= this.maxErrors) {
-      this.statusMessage = `¡Perdiste! La palabra era ${this.wordToGuess}`;
     }
   }
 }
