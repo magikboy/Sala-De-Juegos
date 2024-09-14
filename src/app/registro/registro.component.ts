@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css'],
-  standalone: true,
-  imports: [FormsModule, CommonModule],
 })
 export class RegistroComponent {
   email: string = '';
@@ -66,7 +62,7 @@ export class RegistroComponent {
     }
   }
 
-    redirectToLogin() {
-      this.router.navigate(['/login']);
-    }
+  redirectToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

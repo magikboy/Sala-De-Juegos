@@ -20,7 +20,6 @@ import { GameService } from '../tetris/tetrisService/game.service';
 
 @Component({
   selector: 'app-tetris',
-  standalone: true,
   templateUrl: './tetris.component.html',
   styleUrls: ['./tetris.component.css'],
   providers: [GameService],

@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { PreguntadosService } from './services/preguntados.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-preguntados',
-  standalone: true,
-  imports: [CommonModule, HttpClientModule],
   templateUrl: './preguntados.component.html',
   styleUrls: ['./preguntados.component.css'],
   providers: [PreguntadosService],

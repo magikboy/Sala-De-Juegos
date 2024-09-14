@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-mayor-menor',
-  standalone: true,
   templateUrl: './mayor-menor.component.html',
   styleUrls: ['./mayor-menor.component.css'],
 })

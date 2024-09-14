@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 interface Juego {
   titulo: string;
@@ -9,8 +8,6 @@ interface Juego {
 
 @Component({
   selector: 'app-quien-soy',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './quien-soy.component.html',
   styleUrls: ['./quien-soy.component.css']
 })
