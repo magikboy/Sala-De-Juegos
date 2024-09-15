@@ -92,3 +92,20 @@
     font-size: 0.8rem;
   }
 }
+
+.puntajes-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.puntajes-container th,
+.puntajes-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.puntajes-container th {
+  background-color: #f2f2f2;
+}

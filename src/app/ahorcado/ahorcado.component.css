@@ -99,7 +99,7 @@
   width: 50px;
   height: 6px;
   background-color: #000;
-  top: 200px; /* Ajusta la posición */
+  top: 200px;
   left: 110px;
   transform: rotate(-80deg);
 }
@@ -140,6 +140,23 @@
 .status-message {
   font-size: 18px;
 }
+
+.puntajes-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.puntajes-container th, .puntajes-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.puntajes-container th {
+  background-color: #f2f2f2;
+}
+
 
 /* Media Queries para dispositivos pequeños */
 @media (max-width: 600px) {

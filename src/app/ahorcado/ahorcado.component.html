@@ -1,7 +1,6 @@
 <div class="flex items-center justify-center fondo">
   <div class="card bg-white shadow-lg rounded-lg p-8">
     <div class="word-container text-center text-3xl font-bold mb-8">
-      <!-- Letras subrayadas -->
       <span *ngFor="let letter of guessedWord" class="letter-underline">
         {{ letter === "_" ? "_" : letter }}
       </span>
@@ -22,17 +21,14 @@
       </div>
     </div>
 
-    <!-- Contador de errores -->
     <div class="text-center text-xl mb-4">
       <p>Errores: {{ currentErrors }} / {{ maxErrors }}</p>
     </div>
 
-    <!-- Pista -->
     <div *ngIf="hint" class="text-center text-lg text-green-500 mb-4">
       {{ hint }}
     </div>
 
-    <!-- Teclado -->
     <div class="keyboard-container">
       <button
         *ngFor="let letter of alphabet"
@@ -46,6 +42,27 @@
 
     <div class="status-message text-center text-xl font-semibold text-red-500">
       {{ statusMessage }}
+    </div>
+
+    <!-- Tabla para mostrar los puntajes -->
+    <div class="puntajes-container mt-8">
+      <h2 class="text-2xl font-bold text-center mb-4">Tabla de Puntajes</h2>
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Usuario</th>
+            <th class="px-4 py-2">Fecha</th>
+            <th class="px-4 py-2">Puntaje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let puntaje of puntajes">
+            <td class="border px-4 py-2">{{ puntaje.usuario }}</td>
+            <td class="border px-4 py-2">{{ puntaje.fecha }}</td>
+            <td class="border px-4 py-2">{{ puntaje.puntaje }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

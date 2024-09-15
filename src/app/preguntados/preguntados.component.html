@@ -1,50 +1,62 @@
-<div class="fondo max-w-xl mx-auto text-center p-4 bg-white shadow-lg">
-  <h2 class="text-2xl font-bold mb-4">Preguntados</h2>
-  <p class="text-lg font-semibold mb-2">Puntuación: {{ score }}</p>
-
-  <div *ngIf="loading" class="text-blue-500">Cargando...</div>
-
-  <div *ngIf="!loading && currentQuestionIndex < questions.length">
-    <!-- Mostrar la imagen obtenida -->
-    <img
-      [src]="imageUrl"
-      alt="Imagen relacionada"
-      class="w-full h-72 object-cover mb-4 rounded-lg shadow-md"
-    />
-
-    <!-- Mostrar la pregunta -->
-    <p class="text-lg mb-4">{{ question }}</p>
-
-    <!-- Barra de progreso -->
-    <div class="relative w-full h-4 bg-gray-300 rounded-full mb-4">
-      <div
-        class="absolute top-0 left-0 h-full bg-red-600 rounded-full transition-all"
-        [style.width]="progress + '%'"
-      ></div>
+<div class="fondo">
+  <div class="content">
+    <div class="preguntados-container">
+      <h2 class="text-2xl font-bold mb-4">Preguntados</h2>
+      <p class="text-lg font-semibold mb-2">Puntuación: {{ score }}</p>
+      <div *ngIf="loading" class="text-blue-500">Cargando...</div>
+      <div *ngIf="!loading && currentQuestionIndex < questions.length">
+        <img
+          [src]="imageUrl"
+          alt="Imagen relacionada"
+          class="w-full h-72 object-cover mb-4 rounded-lg shadow-md"
+        />
+        <p class="text-lg mb-4">{{ question }}</p>
+        <div class="relative w-full h-4 bg-gray-300 rounded-full mb-4">
+          <div
+            class="absolute top-0 left-0 h-full bg-red-600 rounded-full transition-all"
+            [style.width]="progress + '%'"
+          ></div>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+          <button
+            *ngFor="let option of options"
+            (click)="checkAnswer(option)"
+            [ngClass]="getButtonStyle(option)"
+            class="py-2 px-4 font-semibold rounded focus:outline-none"
+          >
+            {{ option }}
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!loading && currentQuestionIndex >= questions.length">
+        <h3 class="text-2xl font-bold mb-4">¡Juego completado!</h3>
+        <p class="text-lg mb-4">Tu puntaje final es: {{ score }}</p>
+        <button
+          (click)="restartGame()"
+          class="py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 focus:outline-none"
+        >
+          Reiniciar
+        </button>
+      </div>
     </div>
-
-    <!-- Opciones de respuesta -->
-    <div class="grid grid-cols-1 gap-4">
-      <button
-        *ngFor="let option of options"
-        (click)="checkAnswer(option)"
-        [ngClass]="getButtonStyle(option)"
-        class="py-2 px-4 font-semibold rounded focus:outline-none"
-      >
-        {{ option }}
-      </button>
+    <div class="puntajes-container">
+      <h2 class="text-2xl font-bold text-center mb-4">Tabla de Puntajes</h2>
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Usuario</th>
+            <th class="px-4 py-2">Fecha</th>
+            <th class="px-4 py-2">Puntaje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let puntaje of puntajes">
+            <td class="border px-4 py-2">{{ puntaje.usuario }}</td>
+            <td class="border px-4 py-2">{{ puntaje.fecha }}</td>
+            <td class="border px-4 py-2">{{ puntaje.puntaje }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-
-  <div *ngIf="!loading && currentQuestionIndex >= questions.length">
-    <!-- Mostrar el puntaje final -->
-    <h3 class="text-2xl font-bold mb-4">¡Juego completado!</h3>
-    <p class="text-lg mb-4">Tu puntaje final es: {{ score }}</p>
-    <button
-      (click)="restartGame()"
-      class="py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 focus:outline-none"
-    >
-      Reiniciar
-    </button>
   </div>
 </div>

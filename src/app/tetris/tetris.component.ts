@@ -17,6 +17,9 @@ import {
 } from '../tetris/tetrisService/constants';
 import { Piece, IPiece } from '../tetris/tetrisService/piece.component';
 import { GameService } from '../tetris/tetrisService/game.service';
+import { db } from '../../services/firebase.config'; // Asegúrate de tener la configuración de Firebase
+import { AuthService } from '../auth.service'; // Servicio de autenticación
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-tetris',
@@ -38,6 +41,7 @@ export class TetrisComponent implements OnInit {
   points = 0;
   lines = 0;
   level = 0;
+  puntajes: any[] = []; // Puntajes obtenidos de Firestore
   moves: { [key: number]: (p: IPiece) => IPiece } = {
     [KEY.LEFT]: (p: IPiece): IPiece => ({ ...p, x: p.x - 1 }),
     [KEY.RIGHT]: (p: IPiece): IPiece => ({ ...p, x: p.x + 1 }),
@@ -68,12 +72,64 @@ export class TetrisComponent implements OnInit {
     }
   }
 
-  constructor(private service: GameService) {}
+  constructor(private service: GameService, private authService: AuthService) {}
 
   ngOnInit() {
     this.initBoard();
     this.initNext();
     this.resetGame();
+    this.loadPuntajes(); // Cargar los puntajes cuando se inicie el juego
+  }
+
+  // Función para guardar el puntaje en Firestore
+  async guardarPuntaje() {
+    const user = this.authService.getCurrentUser();
+    const usuario = user && user.email ? user.email.split('@')[0] : 'Anónimo';
+    const nuevoPuntaje = this.points;
+    const fecha = new Date().toLocaleString();
+
+    const docRef = doc(db, 'PuntajesTetris', 'puntajes');
+    const docSnap = await getDoc(docRef);
+
+    let puntajesActualizados = [];
+
+    if (docSnap.exists()) {
+      let puntajes = docSnap.data()['puntajes'] || [];
+
+      // Verificar si el usuario ya tiene un puntaje registrado
+      const indiceUsuario = puntajes.findIndex(
+        (p: any) => p.usuario === usuario
+      );
+
+      if (indiceUsuario !== -1) {
+        // El usuario ya tiene un puntaje, actualizarlo
+        puntajes[indiceUsuario].puntaje = nuevoPuntaje;
+        puntajes[indiceUsuario].fecha = fecha;
+      } else {
+        // Si no, agregar un nuevo registro
+        puntajes.push({ usuario, fecha, puntaje: nuevoPuntaje });
+      }
+
+      puntajesActualizados = puntajes;
+    } else {
+      // Si no existe el documento, crear uno nuevo con el puntaje actual
+      puntajesActualizados = [{ usuario, fecha, puntaje: nuevoPuntaje }];
+    }
+
+    // Guardar los puntajes actualizados en Firestore
+    await setDoc(docRef, { puntajes: puntajesActualizados });
+
+    this.loadPuntajes(); // Actualizar la lista de puntajes después de guardar
+  }
+
+  // Función para cargar los puntajes desde Firestore
+  async loadPuntajes() {
+    const docRef = doc(db, 'PuntajesTetris', 'puntajes');
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      this.puntajes = docSnap.data()['puntajes'] || [];
+    }
   }
 
   initBoard() {
@@ -115,7 +171,7 @@ export class TetrisComponent implements OnInit {
     if (this.time.elapsed > this.time.level) {
       this.time.start = now;
       if (!this.drop()) {
-        this.gameOver();
+        this.gameOver(); // Llamar a gameOver cuando el juego termine
         return;
       }
     }
@@ -190,13 +246,17 @@ export class TetrisComponent implements OnInit {
     });
   }
 
-  gameOver() {
+  // Modificar gameOver para guardar el puntaje
+  async gameOver() {
     cancelAnimationFrame(this.requestId);
     this.ctx.fillStyle = 'black';
     this.ctx.fillRect(1, 3, 8, 1.2);
     this.ctx.font = '1px Arial';
     this.ctx.fillStyle = 'red';
     this.ctx.fillText('GAME OVER', 1.8, 4);
+
+    // Guardar el puntaje cuando el juego termina
+    await this.guardarPuntaje();
   }
 
   getEmptyBoard(): number[][] {

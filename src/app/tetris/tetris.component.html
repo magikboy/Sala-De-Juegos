@@ -8,12 +8,39 @@
       <canvas #board class="game-board border border-black"></canvas>
       <div class="flex flex-col justify-between">
         <div class="space-y-2 text-center">
-          <p class="text-lg font-semibold">Puntos: <span class="text-gray-700">{{ points }}</span></p>
-          <p class="text-lg font-semibold">Lineas: <span class="text-gray-700">{{ lines }}</span></p>
-          <p class="text-lg font-semibold">Nivel: <span class="text-gray-700">{{ level }}</span></p>
+          <p class="text-lg font-semibold">
+            Puntos: <span class="text-gray-700">{{ points }}</span>
+          </p>
+          <p class="text-lg font-semibold">
+            Líneas: <span class="text-gray-700">{{ lines }}</span>
+          </p>
+          <p class="text-lg font-semibold">
+            Nivel: <span class="text-gray-700">{{ level }}</span>
+          </p>
         </div>
 
-        <!-- Contenedor de texto y canvas "Siguiente Pieza" -->
+        <!-- Tabla de Puntajes -->
+        <div class="puntajes-container mt-8">
+          <h2 class="text-2xl font-bold text-center mb-4">Tabla de Puntajes</h2>
+          <table class="min-w-full table-auto">
+            <thead>
+              <tr>
+                <th class="px-4 py-2">Usuario</th>
+                <th class="px-4 py-2">Fecha</th>
+                <th class="px-4 py-2">Puntaje</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let puntaje of puntajes">
+                <td class="border px-4 py-2">{{ puntaje.usuario }}</td>
+                <td class="border px-4 py-2">{{ puntaje.fecha }}</td>
+                <td class="border px-4 py-2">{{ puntaje.puntaje }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Siguiente Pieza -->
         <div class="flex flex-col items-center mt-6">
           <p class="text-lg font-semibold mb-2">Siguiente Pieza</p>
           <canvas #next class="next border border-gray-600"></canvas>

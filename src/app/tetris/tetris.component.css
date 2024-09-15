@@ -9,8 +9,19 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 320px 200px;
+  grid-template-columns: 1fr 320px;
   gap: 2rem;
+  max-width: 550px;
+}
+
+.bg-white {
+  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+}
+
+.puntajes-container table {
+  width: 100%;
 }
 
 .right-column {
@@ -80,12 +91,12 @@
 /* Pantallas medianas (tabletas y dispositivos similares) */
 @media (max-width: 1024px) {
   .grid {
-    grid-template-columns: 1fr; /* Cambiar a una sola columna en tabletas */
+    grid-template-columns: 1fr;
     justify-items: center;
   }
 
   .game-board {
-    width: 240px; /* Reducir el tamaño del tablero */
+    width: 240px;
     height: 480px;
   }
 
@@ -109,17 +120,17 @@
   /* Reorganizar el contenido en móviles */
   .grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto; /* Dos filas: información y tablero */
+    grid-template-rows: auto auto; 
     gap: 1rem;
   }
 
   .space-y-2 {
-    order: 1; /* Colocar la sección de puntos, líneas y nivel arriba */
+    order: 1;
   }
 
   .game-board {
-    order: 2; /* El tablero se colocará debajo en móviles */
-    width: 180px; /* Reducir aún más el tamaño del tablero en móviles */
+    order: 2;
+    width: 180px;
     height: 360px;
   }
 
