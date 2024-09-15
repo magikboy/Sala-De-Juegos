@@ -1,10 +1,6 @@
 import { Routes } from '@angular/router';
-import { QuienSoyComponent } from './quien-soy/quien-soy.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../app/guards/auth.guard';
-import { MayorMenorComponent } from './mayor-menor/mayor-menor.component';
-import { PreguntadosComponent } from './preguntados/preguntados.component';
-import { TetrisComponent } from './tetris/tetris.component';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 
 export const routes: Routes = [
@@ -52,6 +48,11 @@ export const routes: Routes = [
   {
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then((m) => m.ChatModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'encuesta',
+    loadChildren: () => import('./encuesta/encuesta-routing.module').then(m => m.EncuestaRoutingModule),
     canActivate: [AuthGuard],
   },
 ];

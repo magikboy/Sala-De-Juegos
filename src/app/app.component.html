@@ -46,6 +46,14 @@
         </li>
         <li *ngIf="isAuthenticated">
           <a
+            routerLink="/encuesta"
+            class="block py-2 px-3 rounded hover:bg-violet-800 md:hover:bg-transparent md:hover:text-violet-800 md:p-0 text-white"
+          >
+            Encuesta
+          </a>
+        </li>
+        <li *ngIf="isAuthenticated">
+          <a
             routerLink="/home"
             class="block py-2 px-3 rounded hover:bg-violet-800 md:hover:bg-transparent md:hover:text-violet-800 md:p-0 text-white"
           >

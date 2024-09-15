@@ -107,7 +107,7 @@
 
   .next {
     width: 100px;
-    height: 100px; /* Ajustar el tamaño del canvas de la siguiente pieza */
+    height: 100px;
   }
 }
 

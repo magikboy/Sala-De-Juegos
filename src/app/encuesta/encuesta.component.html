@@ -1,0 +1,182 @@
+<div
+  class="encuesta-container mx-auto max-w-md p-6 bg-white shadow-md rounded-b-lg"
+>
+  <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+    Encuesta
+  </h2>
+
+  <form [formGroup]="encuestaForm" (ngSubmit)="onSubmit()">
+    <!-- Paso 1 -->
+    <div *ngIf="currentStep === 1" class="space-y-6">
+      <div>
+        <label for="nombreApellido" class="block text-gray-700 font-medium mb-2"
+          >Nombre y Apellido:</label
+        >
+        <input
+          id="nombreApellido"
+          type="text"
+          formControlName="nombreApellido"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          [ngClass]="{
+            'border-red-500': submitted && f['nombreApellido'].errors
+          }"
+        />
+        <div
+          *ngIf="submitted && f['nombreApellido'].errors"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div *ngIf="f['nombreApellido'].errors['required']">
+            El nombre y apellido son requeridos
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="edad" class="block text-gray-700 font-medium mb-2"
+          >Edad:</label
+        >
+        <input
+          id="edad"
+          type="number"
+          formControlName="edad"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          [ngClass]="{ 'border-red-500': submitted && f['edad'].errors }"
+        />
+        <div
+          *ngIf="submitted && f['edad'].errors"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div *ngIf="f['edad'].errors['required']">La edad es requerida</div>
+          <div *ngIf="f['edad'].errors['min']">La edad mínima es 18 años</div>
+          <div *ngIf="f['edad'].errors['max']">La edad máxima es 99 años</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="telefono" class="block text-gray-700 font-medium mb-2"
+          >Número de teléfono:</label
+        >
+        <input
+          id="telefono"
+          type="tel"
+          formControlName="telefono"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          [ngClass]="{ 'border-red-500': submitted && f['telefono'].errors }"
+        />
+        <div
+          *ngIf="submitted && f['telefono'].errors"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div *ngIf="f['telefono'].errors['required']">
+            El número de teléfono es requerido
+          </div>
+          <div *ngIf="f['telefono'].errors['pattern']">
+            El número de teléfono debe tener 10 dígitos
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        (click)="nextStep()"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
+      >
+        Siguiente
+      </button>
+    </div>
+
+    <!-- Paso 2 -->
+    <div *ngIf="currentStep === 2" class="space-y-6">
+      <div>
+        <label class="block text-gray-700 font-medium mb-2"
+          >¿Cuál es tu color favorito?</label
+        >
+        <select
+          formControlName="pregunta1"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          [ngClass]="{ 'border-red-500': submitted && f['pregunta1'].errors }"
+        >
+          <option value="" disabled selected>Selecciona un color</option>
+          <option *ngFor="let color of colores" [value]="color">
+            {{ color }}
+          </option>
+        </select>
+        <div
+          *ngIf="submitted && f['pregunta1'].errors"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div *ngIf="f['pregunta1'].errors['required']">
+            Esta pregunta es requerida
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-2"
+          >¿Cuál es tu estación del año preferida?</label
+        >
+        <div class="space-y-2">
+          <label *ngFor="let estacion of estaciones" class="flex items-center">
+            <input
+              class="form-radio h-5 w-5 text-indigo-600"
+              type="radio"
+              [value]="estacion"
+              formControlName="pregunta2"
+            />
+            <span class="ml-2 text-gray-700">{{ estacion }}</span>
+          </label>
+        </div>
+        <div
+          *ngIf="submitted && f['pregunta2'].errors"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div *ngIf="f['pregunta2'].errors['required']">
+            Esta pregunta es requerida
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">
+          ¿Qué tipos de música te gustan? (Puedes seleccionar varios)
+        </label>
+        <div class="space-y-2">
+          <label
+            *ngFor="let genero of generosMusicales"
+            class="flex items-center"
+          >
+            <input
+              class="form-checkbox h-5 w-5 text-indigo-600"
+              type="checkbox"
+              [value]="genero"
+              (change)="onCheckboxChange($event)"
+            />
+            <span class="ml-2 text-gray-700">{{ genero }}</span>
+          </label>
+        </div>
+        <div
+          *ngIf="submitted && f['pregunta3'].errors"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div *ngIf="f['pregunta3'].errors['required']">
+            Selecciona al menos un género musical
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
+      >
+        Enviar
+      </button>
+    </div>
+  </form>
+
+  <div
+    *ngIf="encuestaGuardada"
+    class="mt-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+  >
+    ¡Gracias por completar la encuesta!
+  </div>
+</div>
