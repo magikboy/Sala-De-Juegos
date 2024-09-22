@@ -4,34 +4,47 @@
       Juego de Mayor o Menor - Truco Argentino
     </h1>
 
-    <!-- Mostrar dos cartas: la actual y la siguiente -->
+    <!-- Mostrar dos cartas: la visible y la oculta (ahora a la derecha) -->
     <div class="flex justify-center mb-6 space-x-8">
       <div
         class="card w-24 h-36 bg-white rounded-lg border-2 border-gray-400 flex flex-col items-center justify-center"
       >
-        <p class="text-4xl">{{ currentCard?.number }}</p>
-        <p class="text-3xl">{{ currentCard?.symbol }}</p>
+        <p class="text-4xl">{{ visibleCard?.number }}</p>
+        <p class="text-3xl">{{ visibleCard?.symbol }}</p>
       </div>
 
       <div
-        class="card w-24 h-36 bg-white rounded-lg border-2 border-gray-400 flex flex-col items-center justify-center"
+        class="card w-24 h-36 rounded-lg border-2 border-gray-400 flex flex-col items-center justify-center"
+        [ngClass]="{ 'bg-gray-300': !isRevealing, 'bg-white': isRevealing }"
       >
-        <p class="text-4xl">{{ nextCard?.number }}</p>
-        <p class="text-3xl">{{ nextCard?.symbol }}</p>
+        <ng-container *ngIf="!isRevealing">
+          <p class="text-4xl">?</p>
+        </ng-container>
+        <ng-container *ngIf="isRevealing">
+          <p class="text-4xl">{{ hiddenCard?.number }}</p>
+          <p class="text-3xl">{{ hiddenCard?.symbol }}</p>
+        </ng-container>
       </div>
+    </div>
+
+    <!-- Mostrar vidas restantes -->
+    <div class="text-center mb-4">
+      <p class="text-xl">Vidas: {{ lives }}</p>
     </div>
 
     <!-- Botones de mayor o menor -->
     <div class="flex justify-between mb-4">
       <button
         (click)="guessHigher()"
-        class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+        [disabled]="gameOver || isRevealing"
+        class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 disabled:opacity-50"
       >
         Mayor
       </button>
       <button
         (click)="guessLower()"
-        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+        [disabled]="gameOver || isRevealing"
+        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 disabled:opacity-50"
       >
         Menor
       </button>

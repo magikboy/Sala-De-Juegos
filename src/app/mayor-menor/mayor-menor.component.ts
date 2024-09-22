@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../auth.service'; // Importa el AuthService para obtener información del usuario
-import { db } from '../../services/firebase.config'; // Importa la configuración de Firestore
-import { doc, updateDoc, arrayUnion, getDoc, setDoc } from 'firebase/firestore';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { db } from '../../services/firebase.config';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-mayor-menor',
   templateUrl: './mayor-menor.component.html',
   styleUrls: ['./mayor-menor.component.css'],
 })
-export class MayorMenorComponent {
+export class MayorMenorComponent implements OnInit {
   deck: { number: number; suit: string; symbol: string }[] = [];
-  currentCard: { number: number; suit: string; symbol: string } | null = null;
-  nextCard: { number: number; suit: string; symbol: string } | null = null;
+  visibleCard: { number: number; suit: string; symbol: string } | null = null;
+  hiddenCard: { number: number; suit: string; symbol: string } | null = null;
   score: number = 0;
+  lives: number = 3;
   message: string = '';
-  puntajes: any[] = []; // Arreglo para almacenar puntajes desde Firestore
+  puntajes: any[] = [];
+  gameOver: boolean = false;
+  isRevealing: boolean = false;
 
-  // Jerarquía de las cartas del truco, de menor a mayor
   cardOrder = [
     { number: 4, suit: 'Espada', symbol: '⚔️' },
     { number: 4, suit: 'Basto', symbol: '🪓' },
@@ -60,17 +62,22 @@ export class MayorMenorComponent {
     { number: 1, suit: 'Espada', symbol: '⚔️' },
   ];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
     this.startGame();
-    this.loadPuntajes(); // Cargar puntajes al inicio
+    this.loadPuntajes();
   }
 
   startGame() {
     this.deck = this.shuffleDeck([...this.cardOrder]);
-    this.currentCard = this.deck.pop()!;
-    this.nextCard = this.deck.pop()!;
+    this.visibleCard = this.deck.pop()!;
+    this.hiddenCard = this.deck.pop()!;
     this.score = 0;
+    this.lives = 3;
     this.message = '';
+    this.gameOver = false;
+    this.isRevealing = false;
   }
 
   shuffleDeck(
@@ -89,59 +96,68 @@ export class MayorMenorComponent {
     );
   }
 
-  // Adivinar si la carta es mayor
   async guessHigher() {
-    if (!this.nextCard || !this.currentCard) {
-      this.message = 'No quedan más cartas';
-      return;
-    }
-
-    const currentRank = this.getCardRank(this.currentCard);
-    const nextRank = this.getCardRank(this.nextCard);
-
-    if (nextRank > currentRank) {
-      this.score++;
-      this.message = '¡Correcto! Es mayor.';
-      await this.guardarPuntaje(); // Guardar puntaje cada vez que gana un punto
-    } else {
-      this.message = '¡Incorrecto! No es mayor.';
-    }
-
-    this.updateCards();
+    await this.makeGuess(true);
   }
 
-  // Adivinar si la carta es menor
   async guessLower() {
-    if (!this.nextCard || !this.currentCard) {
-      this.message = 'No quedan más cartas';
+    await this.makeGuess(false);
+  }
+
+  async makeGuess(guessedHigher: boolean) {
+    if (
+      this.gameOver ||
+      !this.hiddenCard ||
+      !this.visibleCard ||
+      this.isRevealing
+    ) {
       return;
     }
 
-    const currentRank = this.getCardRank(this.currentCard);
-    const nextRank = this.getCardRank(this.nextCard);
+    const visibleRank = this.getCardRank(this.visibleCard);
+    const hiddenRank = this.getCardRank(this.hiddenCard);
 
-    if (nextRank < currentRank) {
+    const isCorrect =
+      (guessedHigher && hiddenRank > visibleRank) ||
+      (!guessedHigher && hiddenRank < visibleRank);
+
+    this.isRevealing = true;
+
+    if (isCorrect) {
       this.score++;
-      this.message = '¡Correcto! Es menor.';
-      await this.guardarPuntaje(); // Guardar puntaje cada vez que gana un punto
+      this.message = guessedHigher
+        ? '¡Correcto! Es mayor.'
+        : '¡Correcto! Es menor.';
+      await this.guardarPuntaje();
     } else {
-      this.message = '¡Incorrecto! No es menor.';
+      this.lives--;
+      this.message = guessedHigher
+        ? '¡Incorrecto! No es mayor.'
+        : '¡Incorrecto! No es menor.';
+      if (this.lives === 0) {
+        this.gameOver = true;
+        this.message = `Juego terminado. Tu puntuación final es ${this.score}.`;
+      }
     }
 
-    this.updateCards();
+    // Esperar 10 segundos antes de pasar a la siguiente carta
+    setTimeout(() => {
+      this.updateCards();
+      this.isRevealing = false;
+    }, 3000);
   }
 
   updateCards() {
-    this.currentCard = this.nextCard;
+    this.visibleCard = this.hiddenCard;
     if (this.deck.length > 0) {
-      this.nextCard = this.deck.pop()!;
+      this.hiddenCard = this.deck.pop()!;
     } else {
-      this.nextCard = null;
-      this.message = 'Juego terminado, no quedan más cartas.';
+      this.hiddenCard = null;
+      this.gameOver = true;
+      this.message = `¡Felicidades! Has completado todas las cartas. Tu puntuación final es ${this.score}.`;
     }
   }
 
-  // Función para guardar el puntaje en Firestore
   async guardarPuntaje() {
     const user = this.authService.getCurrentUser();
     const usuario = user && user.email ? user.email.split('@')[0] : 'Anónimo';
@@ -155,34 +171,27 @@ export class MayorMenorComponent {
 
     if (docSnap.exists()) {
       let puntajes = docSnap.data()['puntajes'] || [];
-
-      // Verificar si el usuario ya tiene un puntaje registrado
       const indiceUsuario = puntajes.findIndex(
         (p: any) => p.usuario === usuario
       );
 
       if (indiceUsuario !== -1) {
-        // El usuario ya tiene un puntaje, actualizar el puntaje en tiempo real
-        puntajes[indiceUsuario].puntaje = nuevoPuntaje; // Actualizar con el puntaje actual
-        puntajes[indiceUsuario].fecha = fecha; // Actualizar la fecha también
+        puntajes[indiceUsuario].puntaje = nuevoPuntaje;
+        puntajes[indiceUsuario].fecha = fecha;
       } else {
-        // El usuario no tiene un puntaje registrado, agregar un nuevo registro
         puntajes.push({ usuario, fecha, puntaje: nuevoPuntaje });
       }
 
       puntajesActualizados = puntajes;
     } else {
-      // Si no existe el documento, crear uno nuevo con el puntaje actual
       puntajesActualizados = [{ usuario, fecha, puntaje: nuevoPuntaje }];
     }
 
-    // Guardar los puntajes actualizados en Firestore
     await setDoc(docRef, { puntajes: puntajesActualizados });
 
-    this.loadPuntajes(); // Actualiza la lista de puntajes después de guardar
+    this.loadPuntajes();
   }
 
-  // Función para cargar los puntajes desde Firestore
   async loadPuntajes() {
     const docRef = doc(db, 'PuntuacionMayor', 'puntajes');
     const docSnap = await getDoc(docRef);
