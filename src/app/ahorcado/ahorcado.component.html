@@ -1,11 +1,15 @@
+<!-- src/app/ahorcado/ahorcado.component.html -->
+
 <div class="flex items-center justify-center fondo">
   <div class="card bg-white shadow-lg rounded-lg p-8">
+    <!-- Contenedor de la palabra a adivinar -->
     <div class="word-container text-center text-3xl font-bold mb-8">
       <span *ngFor="let letter of guessedWord" class="letter-underline">
         {{ letter === "_" ? "_" : letter }}
       </span>
     </div>
 
+    <!-- Dibujo del ahorcado -->
     <div class="hangman-drawing flex justify-center mb-8">
       <div class="hangman">
         <div class="base"></div>
@@ -21,27 +25,41 @@
       </div>
     </div>
 
+    <!-- Contador de errores -->
     <div class="text-center text-xl mb-4">
       <p>Errores: {{ currentErrors }} / {{ maxErrors }}</p>
     </div>
 
+    <!-- Pista -->
     <div *ngIf="hint" class="text-center text-lg text-green-500 mb-4">
       {{ hint }}
     </div>
 
+    <!-- Teclado en pantalla -->
     <div class="keyboard-container">
       <button
         *ngFor="let letter of alphabet"
         class="btn bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-900 transition-all disabled:opacity-50"
         (click)="guessLetter(letter)"
-        [disabled]="guessedLetters.includes(letter)"
+        [disabled]="guessedLetters.includes(letter) || gameOver"
       >
         {{ letter }}
       </button>
     </div>
 
-    <div class="status-message text-center text-xl font-semibold text-red-500">
+    <!-- Mensaje de estado (ganar/perder) -->
+    <div class="status-message text-center text-xl font-semibold text-red-500 mb-4">
       {{ statusMessage }}
+    </div>
+
+    <!-- Botón para reiniciar el juego, visible solo cuando el juego ha terminado -->
+    <div *ngIf="gameOver" class="text-center">
+      <button
+        class="btn bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-all mt-4"
+        (click)="restartGame()"
+      >
+        Reiniciar Juego
+      </button>
     </div>
 
     <!-- Tabla para mostrar los puntajes -->

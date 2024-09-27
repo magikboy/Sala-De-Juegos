@@ -1,9 +1,11 @@
+// src/app/ahorcado/ahorcado.component.ts
+
 import { Component } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../auth.service'; // Reutilizando el AuthService
+import { AuthService } from '../auth.service'; // Asegúrate de que la ruta es correcta
 import { db } from '../../services/firebase.config'; // Importa la configuración de Firestore
-import { doc, updateDoc, arrayUnion, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-ahorcado',
@@ -13,7 +15,8 @@ import { doc, updateDoc, arrayUnion, getDoc, setDoc } from 'firebase/firestore';
   styleUrls: ['./ahorcado.component.css'],
 })
 export class AhorcadoComponent {
-  wordToGuess: string = '';
+  wordToGuessOriginal: string = '';
+  wordToGuessNormalized: string = '';
   guessedWord: string[] = [];
   guessedLetters: string[] = [];
   maxErrors: number = 6;
@@ -23,6 +26,7 @@ export class AhorcadoComponent {
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   puntos: number = 100;
   puntajes: any[] = [];
+  gameOver: boolean = false;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -31,24 +35,49 @@ export class AhorcadoComponent {
     this.loadPuntajes();
   }
 
+  // Función para eliminar acentos de una cadena
+  removeAccents(str: string): string {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
   getWordFromAPI() {
     this.http
       .get<any>('https://clientes.api.greenborn.com.ar/public-random-word')
       .subscribe((response: any) => {
-        this.wordToGuess = response[0].toUpperCase();
-        this.guessedWord = Array(this.wordToGuess.length).fill('_');
+        if (response && response.length > 0) {
+          this.wordToGuessOriginal = response[0].toUpperCase();
+          this.wordToGuessNormalized = this.removeAccents(this.wordToGuessOriginal);
+          this.guessedWord = Array(this.wordToGuessOriginal.length).fill('_');
+          // Resetear otras variables al obtener una nueva palabra
+          this.guessedLetters = [];
+          this.currentErrors = 0;
+          this.statusMessage = '';
+          this.hint = '';
+          this.gameOver = false;
+        } else {
+          // Manejar el caso en que la API no devuelve una palabra válida
+          this.statusMessage = 'Error al obtener la palabra. Inténtalo de nuevo.';
+        }
+      }, (error) => {
+        console.error('Error al llamar a la API:', error);
+        this.statusMessage = 'Error al obtener la palabra. Inténtalo de nuevo.';
       });
   }
 
   async guessLetter(letter: string) {
-    if (this.statusMessage) return;
+    if (this.gameOver) return;
+
+    // Evitar que se ingrese la misma letra más de una vez
+    if (this.guessedLetters.includes(letter)) return;
 
     this.guessedLetters.push(letter);
 
-    if (this.wordToGuess.includes(letter)) {
-      for (let i = 0; i < this.wordToGuess.length; i++) {
-        if (this.wordToGuess[i] === letter) {
-          this.guessedWord[i] = letter;
+    const normalizedLetter = this.removeAccents(letter);
+
+    if (this.wordToGuessNormalized.includes(normalizedLetter)) {
+      for (let i = 0; i < this.wordToGuessNormalized.length; i++) {
+        if (this.wordToGuessNormalized[i] === normalizedLetter) {
+          this.guessedWord[i] = this.wordToGuessOriginal[i];
         }
       }
       this.checkWin();
@@ -63,13 +92,15 @@ export class AhorcadoComponent {
   checkWin() {
     if (!this.guessedWord.includes('_')) {
       this.statusMessage = '¡Ganaste!';
+      this.gameOver = true;
       this.guardarPuntaje();
     }
   }
 
   checkLose() {
     if (this.currentErrors >= this.maxErrors) {
-      this.statusMessage = `¡Perdiste! La palabra era ${this.wordToGuess}`;
+      this.statusMessage = `¡Perdiste! La palabra era "${this.wordToGuessOriginal}"`;
+      this.gameOver = true;
     }
   }
 
@@ -77,7 +108,7 @@ export class AhorcadoComponent {
     const guessedLettersCount = this.guessedWord.filter(
       (letter) => letter !== '_'
     ).length;
-    const totalLetters = this.wordToGuess.length;
+    const totalLetters = this.wordToGuessOriginal.length;
 
     if (
       this.currentErrors === this.maxErrors - 2 &&
@@ -90,12 +121,14 @@ export class AhorcadoComponent {
   }
 
   generateHint() {
-    const remainingLetters = this.wordToGuess
+    const remainingLetters = this.wordToGuessOriginal
       .split('')
-      .filter((letter) => !this.guessedLetters.includes(letter));
+      .filter((letter) => !this.guessedLetters.includes(this.removeAccents(letter)));
 
     if (remainingLetters.length > 0) {
-      this.hint = `Pista: Una de las letras es \"${remainingLetters[0]}\"`;
+      // Seleccionar una letra aleatoria de las restantes para la pista
+      const randomIndex = Math.floor(Math.random() * remainingLetters.length);
+      this.hint = `Pista: Una de las letras es "${remainingLetters[randomIndex]}"`;
     }
   }
 
@@ -148,5 +181,18 @@ export class AhorcadoComponent {
     if (docSnap.exists()) {
       this.puntajes = docSnap.data()['puntajes'] || [];
     }
+  }
+
+  // Función para reiniciar el juego
+  restartGame() {
+    this.wordToGuessOriginal = '';
+    this.wordToGuessNormalized = '';
+    this.guessedWord = [];
+    this.guessedLetters = [];
+    this.currentErrors = 0;
+    this.statusMessage = '';
+    this.hint = '';
+    this.gameOver = false;
+    this.getWordFromAPI();
   }
 }

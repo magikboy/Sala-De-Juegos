@@ -1,3 +1,5 @@
+/* src/app/ahorcado/ahorcado.component.css */
+
 .fondo {
   background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
   min-height: 90vh;
@@ -141,13 +143,15 @@
   font-size: 18px;
 }
 
+/* Tabla de puntajes */
 .puntajes-container table {
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
 }
 
-.puntajes-container th, .puntajes-container td {
+.puntajes-container th,
+.puntajes-container td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -156,7 +160,6 @@
 .puntajes-container th {
   background-color: #f2f2f2;
 }
-
 
 /* Media Queries para dispositivos pequeños */
 @media (max-width: 600px) {
