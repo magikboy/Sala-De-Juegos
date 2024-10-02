@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PreguntadosService } from './services/preguntados.service';
 import { AuthService } from '../auth.service'; // Importa el AuthService para obtener información del usuario
 import { db } from '../../services/firebase.config'; // Importa la configuración de Firestore
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-preguntados',
@@ -15,6 +15,7 @@ export class PreguntadosComponent implements OnInit {
   correctAnswer: string = '';
   options: string[] = [];
   score: number = 0;
+  lives: number = 3; // Nueva variable para las vidas
   loading: boolean = true;
   timeLeft: number = 10;
   progress: number = 100;
@@ -230,6 +231,10 @@ export class PreguntadosComponent implements OnInit {
 
   // Cargar una nueva pregunta
   loadNewQuestion() {
+    if (this.lives <= 0) {
+      return;
+    }
+
     this.answered = false;
     this.selectedOption = null;
 
@@ -272,6 +277,8 @@ export class PreguntadosComponent implements OnInit {
       if (option === this.correctAnswer) {
         this.score++;
         this.guardarPuntaje(); // Guardar el puntaje cuando la respuesta es correcta
+      } else {
+        this.lives--; // Restar una vida si la respuesta es incorrecta
       }
 
       setTimeout(() => {
@@ -324,6 +331,7 @@ export class PreguntadosComponent implements OnInit {
   restartGame() {
     this.currentQuestionIndex = 0;
     this.score = 0;
+    this.lives = 3; // Reiniciar vidas
     this.loadNewQuestion();
   }
 

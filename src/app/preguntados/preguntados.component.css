@@ -3,6 +3,80 @@
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
+  width: 100%;
+  min-height: 100vh; /* Asegura que el fondo ocupe toda la altura de la pantalla */
+  background-image: linear-gradient(147deg, #991cff 10%, #fbff22 80%);
+  box-sizing: border-box; /* Asegura que el padding no influya en el tamaño del contenedor */
+}
+
+/* Media Queries para pantallas medianas */
+@media (max-width: 1024px) {
+  .preguntados-container {
+    max-width: 100%;
+  }
+
+  .fondo {
+    padding: 10px;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+    min-height: 100vh; /* Ocupa toda la pantalla incluso en resoluciones medianas */
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+/* Media Queries para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .preguntados-container {
+    max-width: 100%;
+  }
+
+  .fondo {
+    padding: 10px;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+    min-height: 100vh;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .question-image {
+    max-width: 100%;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* Media Queries para pantallas muy pequeñas (teléfonos pequeños) */
+@media (max-width: 480px) {
+  .fondo {
+    padding: 8px;
+    min-height: 100vh;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .question-image {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 .content {
@@ -18,7 +92,7 @@
   padding: 20px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .puntajes-container {
@@ -26,7 +100,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 table {

@@ -3,8 +3,11 @@
     <div class="preguntados-container">
       <h2 class="text-2xl font-bold mb-4">Preguntados</h2>
       <p class="text-lg font-semibold mb-2">Puntuación: {{ score }}</p>
+      <p class="text-lg font-semibold mb-2">Vidas restantes: {{ lives }}</p> <!-- Mostrar vidas -->
+
       <div *ngIf="loading" class="text-blue-500">Cargando...</div>
-      <div *ngIf="!loading && currentQuestionIndex < questions.length">
+
+      <div *ngIf="!loading && lives > 0 && currentQuestionIndex < questions.length">
         <img
           [src]="imageUrl"
           alt="Imagen relacionada"
@@ -28,9 +31,9 @@
           </button>
         </div>
       </div>
-      <div *ngIf="!loading && currentQuestionIndex >= questions.length">
-        <h3 class="text-2xl font-bold mb-4">¡Juego completado!</h3>
-        <p class="text-lg mb-4">Tu puntaje final es: {{ score }}</p>
+
+      <div *ngIf="!loading && lives <= 0">
+        <h3 class="text-2xl font-bold mb-4">Has perdido todas tus vidas</h3>
         <button
           (click)="restartGame()"
           class="py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 focus:outline-none"
